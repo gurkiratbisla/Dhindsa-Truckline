@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhindsa Truck Line | Reliable USA Trucking</title>
+    <meta name="description" content="Dhindsa Truck Line provides reliable, fast, and secure trucking and logistics services across the USA.">
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Color Palette & Tokens */
+        :root {
+            --primary-blue: #0A369D; /* Deep vibrant blue */
+            --secondary-blue: #1C54C0;
+            --accent-orange: #FF9F1C; /* Light Orange */
+            --accent-hover: #E38A15;
+            --dark: #111111; /* Deep Black */
+            --darker: #080808; 
+            --light: #FFFFFF; /* Crisp White */
+            --gray: #F4F4F4;
+            --text-dark: #333333;
+            --text-muted: #888888;
+        }
+
+        /* Base Resets */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(17, 17, 17, 0.85); /* Black transparent */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand span {
+            color: var(--accent-orange);
+        }
+
+        .brand i {
+            color: var(--primary-blue);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-orange);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background-color: var(--primary-blue);
+            color: var(--light);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-blue);
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background-color: transparent;
+            color: var(--primary-blue);
+            box-shadow: 0 0 15px rgba(10, 54, 157, 0.5);
+        }
+
+        .cta-btn.orange {
+            background-color: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: var(--darker);
+        }
+
+        .cta-btn.orange:hover {
+            background-color: transparent;
+            color: var(--accent-orange);
+            box-shadow: 0 0 15px rgba(255, 159, 28, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            /* High quality US Truck Image */
+            background: linear-gradient(rgba(17, 17, 17, 0.75), rgba(17, 17, 17, 0.75)), url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            color: var(--light);
+            animation: fadeInUp 1s ease-out;
+            margin-top: 50px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-orange);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #dddddd;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--primary-blue);
+            color: var(--light);
+            padding: 80px 5%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 48px;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 5%;
+            background-color: var(--dark);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-content h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .about-content h2 span {
+            color: var(--primary-blue);
+        }
+
+        .about-content p {
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--accent-orange);
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 5%;
+            background-color: var(--gray);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e1e1e1;
+            z-index: 1;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--dark);
+            z-index: -1;
+            transition: height 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card:hover h3, .service-card:hover p {
+            color: var(--light);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            transition: color 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            color: var(--accent-orange);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            transition: color 0.4s ease;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            transition: color 0.4s ease;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            padding: 100px 5%;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .cta-section h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #bbbbbb;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 80px 5% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--light);
+        }
+
+        .footer-col p {
+            color: #999999;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul li a {
+            color: #999999;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Micro-Animations (Scroll Reveals) */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            nav ul {
+                display: none; /* Hide menu on mobile for simplicity */
+            }
+            .about {
+                flex-direction: column;
+            }
+            .about-image::after {
+                display: none;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Transparent Glassmorphism Navigation -->
+    <header id="navbar">
+        <div class="brand">
+            <i class="fa-solid fa-truck-fast"></i>
+            Dhindsa <span>Truck Line</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="#quote" class="cta-btn orange">Get a Quote</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Delivering <span>Excellence</span> Across the USA</h1>
+            <p>Your trusted partner for fast, secure, and reliable freight transportation nationwide. Driven by commitment, powered by modern logistics.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="cta-btn">Our Services</a>
+                <a href="#contact" class="cta-btn orange">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Highlight -->
+    <section class="stats">
+        <div class="stat-item reveal">
+            <h3>500+</h3>
+            <p>Trucks in Fleet</p>
+        </div>
+        <div class="stat-item reveal">
+            <h3>50 States</h3>
+            <p>Nationwide Coverage</p>
+        </div>
+        <div class="stat-item reveal">
+            <h3>24/7</h3>
+            <p>Dispatch Support</p>
+        </div>
+        <div class="stat-item reveal">
+            <h3>10k+</h3>
+            <p>Happy Clients</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content reveal">
+            <h2>Who We Are at <span>Dhindsa Truck Line</span></h2>
+            <p>At Dhindsa Truck Line, we understand that logistics is the backbone of America. With years of experience on the road, we have built a reputation for punctuality, safety, and unparalleled customer service. From coast to coast, our modern fleet and professional drivers ensure your cargo reaches its destination efficiently and securely.</p>
+            <p>Our mission is simple: to provide seamless transportation solutions tailored to your unique business needs, utilizing state-of-the-art technology and a passion for operational excellence.</p>
+            <a href="#contact" class="cta-btn">Learn More</a>
+        </div>
+        <div class="about-image reveal">
+            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2074&auto=format&fit=crop" alt="Dhindsa Truck Line Fleet">
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <h2>Our Premium Services</h2>
+            <p>Comprehensive logistics solutions designed for the modern supply chain.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <i class="fa-solid fa-truck-moving service-icon"></i>
+                <h3>Full Truckload (FTL)</h3>
+                <p>Dedicated transportation for your high-volume freight, ensuring direct and swift delivery anywhere in the United States.</p>
+            </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-boxes-stacked service-icon"></i>
+                <h3>Less-than-Truckload (LTL)</h3>
+                <p>Cost-effective solutions for smaller shipments without compromising on delivery speed, tracking, or cargo security.</p>
+            </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-stopwatch service-icon"></i>
+                <h3>Expedited Shipping</h3>
+                <p>When time is critical, our team-driver expedited services guarantee your urgent freight arrives exactly when you need it.</p>
+            </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-snowflake service-icon"></i>
+                <h3>Temperature Controlled</h3>
+                <p>State-of-the-art refrigerated trailers to transport your perishable or sensitive goods with precise, monitored climate control.</p>
+            </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-warehouse service-icon"></i>
+                <h3>Warehousing & Storage</h3>
+                <p>Secure, strategic storage solutions combined with efficient distribution networks to streamline your complex inventory.</p>
+            </div>
+            <div class="service-card reveal">
+                <i class="fa-solid fa-route service-icon"></i>
+                <h3>Logistics Planning</h3>
+                <p>Advanced routing and end-to-end supply chain optimization to minimize costs and maximize your operational efficiency.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section reveal" id="quote">
+        <h2>Ready to Move Your Freight?</h2>
+        <p>Experience the Dhindsa Truck Line difference. Request a customized quote today and let our dedicated team handle your logistics with precision and care.</p>
+        <a href="#contact" class="cta-btn orange">Get Your Free Quote</a>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="font-size: 24px; margin-bottom: 20px;">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    Dhindsa <span>Truck</span>
+                </div>
+                <p>Delivering excellence, mile after mile. Your premier trucking and logistics partner across the United States of America.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#quote">Request a Quote</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 123 Logistics Way, Transport City, USA</p>
+                <p><i class="fa-solid fa-phone"></i> +1 (800) 555-0199</p>
+                <p><i class="fa-solid fa-envelope"></i> dispatch@dhindsa.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; font-size: 20px;">
+                    <a href="#" style="color: #999;"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" style="color: #999;"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" style="color: #999;"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" style="color: #999;"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Dhindsa Truck Line. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Scroll Animation Observer for dynamic visual reveals
+        const reveals = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+
+        // Dynamic Header Styling on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(17, 17, 17, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+                header.style.padding = '15px 5%';
+            } else {
+                header.style.background = 'rgba(17, 17, 17, 0.85)';
+                header.style.boxShadow = 'none';
+                header.style.padding = '20px 5%';
+            }
+        });
+    </script>
+</body>
+</html>
