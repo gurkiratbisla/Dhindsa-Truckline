@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Dhindsa Truck Line USA</title>
+    <!-- Google Fonts for Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Exact same tokens and base styles as index.html */
+        :root {
+            --primary-color: #0d6efd; 
+            --primary-glow: rgba(13, 110, 253, 0.5);
+            --accent-color: #ff5e00; 
+            --accent-glow: rgba(255, 94, 0, 0.5);
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(10, 10, 10, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; background-color: var(--bg-dark); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Preloader */
+        .loader-wrapper {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-dark); z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader-wrapper.fade-out { opacity: 0; visibility: hidden; }
+        .truck-loader { font-size: 64px; color: var(--primary-color); animation: drive 1.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 15px var(--primary-glow)); }
+        .loader-text { margin-top: 20px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 4px; color: var(--accent-color); animation: pulse 1.5s infinite alternate; }
+        @keyframes drive { 0% { transform: translateX(-40px) scale(0.95); } 100% { transform: translateX(40px) scale(1.05); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* Mouse Spotlight Effect */
+        .cursor-spotlight {
+            position: fixed; top: 0; left: 0; width: 800px; height: 800px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 110, 253, 0.12) 0%, rgba(0,0,0,0) 60%);
+            pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; mix-blend-mode: screen;
+        }
+
+        /* Ambient Backgrounds */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -2; pointer-events: none;
+        }
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kenworth_T680_Next_Gen_2021.jpg/1200px-Kenworth_T680_Next_Gen_2021.jpg') center/cover no-repeat;
+            opacity: 0.05; z-index: -3; pointer-events: none; filter: grayscale(100%);
+        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.5; animation: float 10s infinite ease-in-out alternate; }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary-glow); top: -100px; left: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--accent-glow); bottom: 20%; right: -50px; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(30px) scale(1.1); } }
+
+        h1, h2, h3, h4, .brand { font-family: 'Syne', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Navigation */
+        header { position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.4s; }
+        header.scrolled { background: var(--glass-bg); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-light); padding: 15px 5%; }
+        .brand { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; }
+        .brand i { color: var(--primary-color); font-size: 28px; filter: drop-shadow(0 0 10px var(--primary-glow)); animation: drive-small 3s infinite ease-in-out; }
+        @keyframes drive-small { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        .brand span { color: var(--accent-color); }
+        nav ul { list-style: none; display: flex; gap: 40px; }
+        nav ul li a { font-weight: 500; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase; position: relative; padding: 5px 0; color: rgba(255, 255, 255, 0.8); transition: color 0.3s; }
+        nav ul li a:hover, nav ul li a.active { color: #fff; }
+        nav ul li a::before { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background: var(--accent-color); transition: width 0.3s; box-shadow: 0 0 8px var(--accent-glow); }
+        nav ul li a:hover::before, nav ul li a.active::before { width: 100%; }
+        
+        .btn-modern { position: relative; padding: 14px 32px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: #fff; background: linear-gradient(135deg, var(--accent-color), #d94a00); border: none; border-radius: 50px; cursor: pointer; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(255, 94, 0, 0.3); }
+        .btn-modern::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.6s; }
+        .btn-modern:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(255, 94, 0, 0.5); }
+        .btn-modern:hover::before { left: 100%; }
+
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none; }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+
+        /* Services Hero */
+        .services-hero { padding: 180px 5% 80px; text-align: center; position: relative; border-bottom: 1px solid var(--border-light); }
+        .services-hero h1 { font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; margin-bottom: 20px; background: linear-gradient(to right, #fff, #a0a0a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .services-hero p { font-size: 20px; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+        /* Detailed Services Layout */
+        .services-detail-container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; display: flex; flex-direction: column; gap: 60px; }
+        
+        .service-row { display: flex; align-items: center; gap: 50px; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 24px; padding: 40px; backdrop-filter: blur(10px); transition: all 0.4s; position: relative; overflow: hidden; }
+        .service-row:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .service-row::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at right, rgba(255,255,255,0.03), transparent 60%); opacity: 0; transition: opacity 0.4s; }
+        .service-row:hover::before { opacity: 1; }
+
+        .service-icon-large { width: 100px; height: 100px; background: linear-gradient(135deg, rgba(13, 110, 253, 0.1), rgba(13, 110, 253, 0.02)); border: 1px solid var(--border-light); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--primary-color); flex-shrink: 0; transition: all 0.4s; }
+        .service-row:hover .service-icon-large { background: var(--primary-color); color: #fff; transform: rotate(-5deg) scale(1.05); box-shadow: 0 10px 25px var(--primary-glow); }
+        .service-row.orange-theme .service-icon-large { background: linear-gradient(135deg, rgba(255, 94, 0, 0.1), rgba(255, 94, 0, 0.02)); color: var(--accent-color); }
+        .service-row.orange-theme:hover .service-icon-large { background: var(--accent-color); color: #fff; box-shadow: 0 10px 25px var(--accent-glow); }
+
+        .service-content { flex: 1; }
+        .service-content h2 { font-size: 32px; margin-bottom: 15px; color: #fff; }
+        .service-content p { color: var(--text-muted); line-height: 1.8; font-size: 16px; margin-bottom: 25px; }
+        .service-features { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; }
+        .service-features span { background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 30px; font-size: 14px; font-weight: 500; color: #ccc; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .service-action { display: flex; flex-direction: column; align-items: center; gap: 15px; flex-shrink: 0; min-width: 180px; }
+        .service-action .price-badge { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--accent-color); font-size: 18px; }
+
+        /* CTA Section */
+        .cta-section { padding: 100px 5%; position: relative; overflow: hidden; background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kenworth_T680_Next_Gen_2021.jpg/1200px-Kenworth_T680_Next_Gen_2021.jpg') center/cover no-repeat; background-attachment: fixed; margin-top: 40px; }
+        .cta-section::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.85); z-index: 0; }
+        .cta-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; max-width: 1200px; height: 100%; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); border-radius: 30px; opacity: 0.15; filter: blur(80px); z-index: 1; animation: pulse-glow 5s infinite alternate; }
+        .cta-container { max-width: 1200px; margin: 0 auto; background: rgba(20, 20, 20, 0.5); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); border-radius: 30px; padding: 80px 50px; text-align: center; position: relative; z-index: 2; }
+        .cta-container h2 { font-size: 48px; margin-bottom: 20px; color: #fff; }
+        .cta-container p { font-size: 18px; color: #e0e0e0; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* Footer */
+        footer { background: #030303; border-top: 1px solid var(--border-light); padding: 80px 5% 30px; position: relative; z-index: 2; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; max-width: 1300px; margin: 0 auto 60px; }
+        .footer-brand .brand { margin-bottom: 20px; }
+        .footer-brand p { color: var(--text-muted); line-height: 1.8; max-width: 300px; }
+        .footer-col h4 { font-size: 18px; margin-bottom: 25px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--text-muted); transition: color 0.3s; }
+        .footer-col ul li a:hover { color: var(--accent-color); padding-left: 5px; }
+        .contact-info li { display: flex; align-items: center; gap: 15px; color: var(--text-muted); }
+        .contact-info i { color: var(--primary-color); font-size: 18px; }
+        .social-links { display: flex; gap: 15px; margin-top: 25px; }
+        .social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s; border: 1px solid var(--border-light); }
+        .social-links a:hover { background: var(--primary-color); border-color: var(--primary-color); transform: translateY(-5px) rotate(360deg); box-shadow: 0 5px 15px var(--primary-glow); }
+        .footer-bottom { max-width: 1300px; margin: 0 auto; text-align: center; padding-top: 30px; border-top: 1px solid var(--border-light); color: var(--text-muted); font-size: 14px; }
+
+        /* Animations */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .service-row { flex-direction: column; text-align: center; gap: 30px; }
+            .service-features { justify-content: center; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { display: none; }
+            .cta-container { padding: 50px 30px; }
+            .cta-container h2 { font-size: 36px; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <i class="fa-solid fa-truck-moving truck-loader"></i>
+        <div class="loader-text">LOADING</div>
+    </div>
+
+    <!-- Mouse Spotlight -->
+    <div class="cursor-spotlight" id="spotlight"></div>
+
+    <!-- Ambient Background Effects -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <header id="navbar">
+        <div class="brand">
+            <i class="fa-solid fa-truck-fast"></i>
+            Dhindsa <span>Trucking</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="contactus.html" class="btn-modern">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
+    </header>
+
+    <!-- Hero -->
+    <section class="services-hero reveal">
+        <h1>Premium Logistics Solutions</h1>
+        <p>From full truckloads to specialized temperature-controlled freight, we provide nationwide solutions engineered for speed, safety, and reliability.</p>
+    </section>
+
+    <!-- Services Details -->
+    <section class="services-detail-container">
+        
+        <!-- Service 1 -->
+        <div class="service-row reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-truck"></i></div>
+            <div class="service-content">
+                <h2>Full Truckload (FTL)</h2>
+                <p>Maximize your efficiency with our dedicated FTL services. Whether it's dry van, flatbed, or specialized equipment, we ensure your high-volume freight takes the most direct and secure route across all 50 states without unnecessary stops or handling.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> Dedicated Capacity</span>
+                    <span><i class="fa-solid fa-check"></i> Direct Routing</span>
+                    <span><i class="fa-solid fa-check"></i> Real-time Tracking</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Custom Rates</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-row orange-theme reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-cubes"></i></div>
+            <div class="service-content">
+                <h2>Less-than-Truckload (LTL)</h2>
+                <p>Enjoy the cost-effectiveness of sharing trailer space without sacrificing the reliability of premium transport. Our LTL solutions utilize intelligent consolidation routing to get your smaller shipments delivered on time while drastically lowering your overhead.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> Cost-Effective</span>
+                    <span><i class="fa-solid fa-check"></i> Smart Consolidation</span>
+                    <span><i class="fa-solid fa-check"></i> Flexible Sizing</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Volume Pricing</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-row reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-bolt"></i></div>
+            <div class="service-content">
+                <h2>Expedited Delivery</h2>
+                <p>When every minute counts, our expedited shipping is the answer. We deploy highly trained team-drivers in modern Kenworth trucks to drive non-stop, ensuring your time-critical freight reaches its destination securely and exactly when required.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> Team Drivers</span>
+                    <span><i class="fa-solid fa-check"></i> Non-stop Transit</span>
+                    <span><i class="fa-solid fa-check"></i> Priority Handling</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Premium Speed</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-row orange-theme reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-temperature-snow"></i></div>
+            <div class="service-content">
+                <h2>Temp-Controlled Transport</h2>
+                <p>Protect your sensitive perishable goods with our state-of-the-art refrigerated trailers. We guarantee a strict, unbroken cold chain with continuous remote temperature monitoring and instant alerts for maximum cargo integrity.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> Remote Monitoring</span>
+                    <span><i class="fa-solid fa-check"></i> Strict Cold Chain</span>
+                    <span><i class="fa-solid fa-check"></i> Multi-Temp Trailers</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Climate Assured</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="service-row reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-boxes-packing"></i></div>
+            <div class="service-content">
+                <h2>Warehousing & Distribution</h2>
+                <p>Take the stress out of inventory management. Our secure, strategically located facilities offer short-term and long-term storage, cross-docking, and fully integrated distribution services to streamline your supply chain end-to-end.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> 24/7 Security</span>
+                    <span><i class="fa-solid fa-check"></i> Cross-docking</span>
+                    <span><i class="fa-solid fa-check"></i> Inventory Analytics</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Flexible Storage</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+        <!-- Service 6 -->
+        <div class="service-row orange-theme reveal">
+            <div class="service-icon-large"><i class="fa-solid fa-chart-network"></i></div>
+            <div class="service-content">
+                <h2>Supply Chain Consulting</h2>
+                <p>Leverage our decades of industry experience. Our logistics experts will analyze your shipping patterns, uncover hidden inefficiencies, and design custom transportation strategies that reduce your costs and improve overall transit times.</p>
+                <div class="service-features">
+                    <span><i class="fa-solid fa-check"></i> Route Optimization</span>
+                    <span><i class="fa-solid fa-check"></i> Cost Analysis</span>
+                    <span><i class="fa-solid fa-check"></i> Strategic Planning</span>
+                </div>
+            </div>
+            <div class="service-action">
+                <span class="price-badge">Expert Insights</span>
+                <a href="contactus.html" class="btn-modern btn-outline">Request Quote</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="quote">
+        <div class="cta-bg"></div>
+        <div class="cta-container reveal">
+            <h2>Ready to Optimize Your Logistics?</h2>
+            <p>Join industry leaders who trust Dhindsa Truck Line for their most critical freight operations. Let's build a smarter supply chain together.</p>
+            <a href="contactus.html" class="btn-modern" style="transform: scale(1.1); margin-top: 20px;">Request a Custom Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand reveal">
+                <div class="brand">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    Dhindsa <span>Trucking</span>
+                </div>
+                <p>Pioneering the future of freight transportation across North America with innovation, dedication, and superior service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col reveal">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="services.html">FTL Freight</a></li>
+                    <li><a href="services.html">LTL Freight</a></li>
+                    <li><a href="services.html">Expedited Shipping</a></li>
+                    <li><a href="services.html">Temperature Controlled</a></li>
+                    <li><a href="services.html">Warehousing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col reveal">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">News & Media</a></li>
+                    <li><a href="contactus.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col reveal">
+                <h4>Get in Touch</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Innovation Drive,<br>Logistics Center, CA 90210</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span>+1 (800) 555-0199</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span>dispatch@dhindsa.com</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Dhindsa Truck Line. All Rights Reserved. Designed for the Future.
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Preloader Animation
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 600); 
+        });
+
+        // Mouse Spotlight Effect
+        const spotlight = document.getElementById('spotlight');
+        document.addEventListener('mousemove', (e) => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top = e.clientY + 'px';
+        });
+
+        // Scroll Reveal Animations
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        reveals.forEach((reveal, index) => {
+            // Apply slight stagger for stacked elements
+            if(reveal.classList.contains('service-row')) {
+                reveal.style.transitionDelay = `${(index % 2) * 0.15}s`;
+            }
+            revealOnScroll.observe(reveal);
+        });
+
+        // Header Scroll Effect
+        const header = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

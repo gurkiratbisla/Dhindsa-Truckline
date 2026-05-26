@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dhindsa Truck Line | Reliable USA Trucking</title>
+    <title>Dhindsa Truck Line | Premium USA Logistics</title>
     <meta name="description" content="Dhindsa Truck Line provides reliable, fast, and secure trucking and logistics services across the USA.">
     <!-- Google Fonts for Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* Color Palette & Tokens */
         :root {
-            --primary-blue: #0A369D; /* Deep vibrant blue */
-            --secondary-blue: #1C54C0;
-            --accent-orange: #FF9F1C; /* Light Orange */
-            --accent-hover: #E38A15;
-            --dark: #111111; /* Deep Black */
-            --darker: #080808; 
-            --light: #FFFFFF; /* Crisp White */
-            --gray: #F4F4F4;
-            --text-dark: #333333;
-            --text-muted: #888888;
+            --primary-color: #0d6efd; 
+            --primary-glow: rgba(13, 110, 253, 0.5);
+            --accent-color: #ff5e00; 
+            --accent-glow: rgba(255, 94, 0, 0.5);
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(10, 10, 10, 0.7);
         }
 
         /* Base Resets */
@@ -34,17 +36,130 @@
 
         html {
             scroll-behavior: smooth;
+            background-color: var(--bg-dark);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--light);
-            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Preloader */
+        .loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-dark);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .truck-loader {
+            font-size: 64px;
+            color: var(--primary-color);
+            animation: drive 1.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--accent-color);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes drive {
+            0% { transform: translateX(-40px) scale(0.95); }
+            100% { transform: translateX(40px) scale(1.05); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Mouse Spotlight Effect */
+        .cursor-spotlight {
+            position: fixed;
+            top: 0; left: 0;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 110, 253, 0.12) 0%, rgba(0,0,0,0) 60%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        /* Subtle Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Global Ambient Truck Background */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kenworth_T680_Next_Gen_2021.jpg/1200px-Kenworth_T680_Next_Gen_2021.jpg') center/cover no-repeat;
+            opacity: 0.05;
+            z-index: -3;
+            pointer-events: none;
+            filter: grayscale(100%);
+        }
+
+        /* Glowing Orbs in Background */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--primary-glow);
+            top: -100px; left: -100px;
+        }
+        .orb-2 {
+            width: 300px; height: 300px;
+            background: var(--accent-glow);
+            bottom: 20%; right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
         }
 
         h1, h2, h3, h4, .brand {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Syne', sans-serif;
         }
 
         a {
@@ -52,7 +167,7 @@
             color: inherit;
         }
 
-        /* Glassmorphism Header */
+        /* Modern Glassmorphism Header */
         header {
             position: fixed;
             top: 0;
@@ -62,325 +177,622 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(17, 17, 17, 0.85); /* Black transparent */
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header.scrolled {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 15px 5%;
         }
 
         .brand {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
-            color: var(--light);
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .brand span {
-            color: var(--accent-orange);
+            gap: 12px;
+            position: relative;
         }
 
         .brand i {
-            color: var(--primary-blue);
+            color: var(--primary-color);
+            font-size: 28px;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
+            animation: drive-small 3s infinite ease-in-out;
+        }
+
+        @keyframes drive-small {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .brand span {
+            color: var(--accent-color);
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
 
         nav ul li a {
-            color: var(--light);
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             position: relative;
-            transition: color 0.3s ease;
+            padding: 5px 0;
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
         }
 
         nav ul li a:hover {
-            color: var(--accent-orange);
+            color: #fff;
         }
 
-        nav ul li a::after {
+        nav ul li a::before {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            background: var(--accent-orange);
-            bottom: -5px;
+            bottom: 0;
             left: 0;
-            transition: width 0.3s ease;
+            background: var(--accent-color);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 8px var(--accent-glow);
         }
 
-        nav ul li a:hover::after {
+        nav ul li a:hover::before {
             width: 100%;
         }
 
-        .cta-btn {
-            background-color: var(--primary-blue);
-            color: var(--light);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-blue);
-            display: inline-block;
+        /* Fancy Button */
+        .btn-modern {
+            position: relative;
+            padding: 14px 32px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--accent-color), #d94a00);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(255, 94, 0, 0.3);
         }
 
-        .cta-btn:hover {
-            background-color: transparent;
-            color: var(--primary-blue);
-            box-shadow: 0 0 15px rgba(10, 54, 157, 0.5);
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
         }
 
-        .cta-btn.orange {
-            background-color: var(--accent-orange);
-            border-color: var(--accent-orange);
-            color: var(--darker);
+        .btn-modern:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(255, 94, 0, 0.5);
         }
 
-        .cta-btn.orange:hover {
-            background-color: transparent;
-            color: var(--accent-orange);
-            box-shadow: 0 0 15px rgba(255, 159, 28, 0.5);
+        .btn-modern:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Hero Section */
         .hero {
+            position: relative;
             height: 100vh;
-            /* High quality US Truck Image */
-            background: linear-gradient(rgba(17, 17, 17, 0.75), rgba(17, 17, 17, 0.75)), url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
+            padding: 0 5%;
+            overflow: hidden;
+        }
+
+        .hero-bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kenworth_T680_Next_Gen_2021.jpg/1200px-Kenworth_T680_Next_Gen_2021.jpg') center/cover no-repeat;
+            opacity: 0.3;
+            z-index: -1;
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            animation: zoomBg 20s infinite alternate linear;
+        }
+
+        @keyframes zoomBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .hero-content {
-            max-width: 900px;
-            color: var(--light);
-            animation: fadeInUp 1s ease-out;
-            margin-top: 50px;
+            max-width: 1000px;
+            text-align: center;
+            z-index: 1;
+            perspective: 1000px;
         }
 
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            animation: slideDown 1s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        /* Staggered Text Reveal */
         .hero h1 {
-            font-size: 64px;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        .char-reveal {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(40px) rotateX(-40deg);
+            animation: revealChar 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes revealChar {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
         }
 
         .hero h1 span {
-            color: var(--accent-orange);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
         }
 
         .hero p {
             font-size: 20px;
-            margin-bottom: 40px;
-            color: #dddddd;
-            font-weight: 300;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
             line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 1s ease forwards; /* Delayed slightly */
         }
 
-        .hero-buttons {
+        .hero-btns {
             display: flex;
             gap: 20px;
             justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 1.2s ease forwards;
+        }
+
+        /* Infinite Marquee */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: var(--primary-color);
+            padding: 15px 0;
+            transform: rotate(-1.5deg) scale(1.05);
+            margin: 40px 0;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll-left 25s linear infinite;
+        }
+
+        .marquee-content span {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 0 30px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Stats Section */
         .stats {
-            background-color: var(--primary-blue);
-            color: var(--light);
+            position: relative;
             padding: 80px 5%;
+            margin-top: -50px;
+            z-index: 10;
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
             gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .stats-container:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.15);
         }
 
         .stat-item {
             text-align: center;
+            flex: 1;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
         }
 
         .stat-item h3 {
-            font-size: 48px;
-            color: var(--accent-orange);
+            font-size: 54px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-color), #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .stat-item p {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
 
         /* About Section */
-        .about {
-            padding: 100px 5%;
-            background-color: var(--dark);
-            color: var(--light);
+        .section-padding {
+            padding: 120px 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-wrapper {
             display: flex;
             align-items: center;
-            gap: 50px;
-            flex-wrap: wrap;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .about-image-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            height: 600px;
+            filter: grayscale(20%) brightness(0.8);
+            transition: 0.5s ease;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        .about-img.active-img {
+            transform: scale(1);
+            opacity: 1;
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .img-decor {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 60%;
+            height: 40%;
+            background: var(--primary-color);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(40px);
+            animation: pulse-glow 4s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.1); opacity: 0.7; }
         }
 
         .about-content {
             flex: 1;
-            min-width: 300px;
         }
 
-        .about-content h2 {
-            font-size: 40px;
+        .section-subtitle {
+            color: var(--accent-color);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             margin-bottom: 20px;
+            display: block;
         }
 
-        .about-content h2 span {
-            color: var(--primary-blue);
+        .section-title {
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 800;
         }
 
         .about-content p {
-            color: #cccccc;
+            color: var(--text-muted);
+            font-size: 18px;
             line-height: 1.8;
-            margin-bottom: 30px;
-            font-size: 16px;
+            margin-bottom: 20px;
         }
 
-        .about-image {
-            flex: 1;
-            min-width: 300px;
+        .features-list {
+            list-style: none;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .features-list.active li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Add stagger delays for list items */
+        .features-list li:nth-child(1) { transition-delay: 0.1s; }
+        .features-list li:nth-child(2) { transition-delay: 0.2s; }
+        .features-list li:nth-child(3) { transition-delay: 0.3s; }
+
+        .features-list i {
+            color: var(--primary-color);
+            background: rgba(13, 110, 253, 0.1);
+            width: 32px; height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Services Section with Parallax Background */
+        .services {
+            background: #080808;
             position: relative;
         }
 
-        .about-image img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            display: block;
+        .services-bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Kenworth_W900L.jpg/1200px-Kenworth_W900L.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
-        
-        .about-image::after {
+
+        .services::before {
             content: '';
             position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            border: 4px solid var(--accent-orange);
-            border-radius: 12px;
-            z-index: -1;
+            top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            z-index: 2;
         }
 
-        /* Services Section */
-        .services {
-            padding: 100px 5%;
-            background-color: var(--gray);
+        .services > div:not(.services-bg-img) {
+            position: relative;
+            z-index: 1;
         }
 
-        .section-header {
+        .services-header {
             text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 40px;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 80px;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
         }
 
         .service-card {
-            background: var(--light);
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid #e1e1e1;
-            z-index: 1;
+            backdrop-filter: blur(10px);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .service-card.active {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .service-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: var(--dark);
-            z-index: -1;
-            transition: height 0.4s ease;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
         .service-card:hover::before {
-            height: 100%;
+            opacity: 1;
         }
 
-        .service-card:hover h3, .service-card:hover p {
-            color: var(--light);
+        .service-icon-wrap {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            transition: all 0.4s;
         }
 
-        .service-icon {
-            font-size: 40px;
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-            transition: color 0.4s ease;
-        }
-
-        .service-card:hover .service-icon {
-            color: var(--accent-orange);
+        .service-card:hover .service-icon-wrap {
+            background: var(--primary-color);
+            color: #fff;
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 10px 20px var(--primary-glow);
         }
 
         .service-card h3 {
             font-size: 24px;
             margin-bottom: 15px;
-            color: var(--dark);
-            transition: color 0.4s ease;
         }
 
         .service-card p {
             color: var(--text-muted);
-            line-height: 1.6;
-            transition: color 0.4s ease;
+            line-height: 1.7;
+            font-size: 15px;
         }
 
-        /* CTA Section */
+        /* CTA Section with Parallax Truck Background */
         .cta-section {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            padding: 100px 5%;
+            padding: 120px 5%;
+            position: relative;
+            overflow: hidden;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kenworth_T680_Next_Gen_2021.jpg/1200px-Kenworth_T680_Next_Gen_2021.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.85); /* Dark overlay to keep text legible */
+            z-index: 0;
+        }
+
+        .cta-bg {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; max-width: 1200px; height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 30px;
+            opacity: 0.15;
+            filter: blur(80px);
+            z-index: 1;
+            animation: pulse-glow 5s infinite alternate;
+        }
+
+        .cta-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 80px 50px;
             text-align: center;
-            color: var(--light);
+            position: relative;
+            z-index: 2;
         }
 
-        .cta-section h2 {
-            font-size: 40px;
+        .cta-container h2 {
+            font-size: 48px;
             margin-bottom: 20px;
+            color: #fff;
         }
 
-        .cta-section p {
+        .cta-container p {
             font-size: 18px;
-            color: #bbbbbb;
+            color: #e0e0e0;
             margin-bottom: 40px;
             max-width: 600px;
             margin-left: auto;
@@ -389,28 +801,35 @@
 
         /* Footer */
         footer {
-            background-color: var(--darker);
-            color: var(--light);
-            padding: 80px 5% 20px;
+            background: #030303;
+            border-top: 1px solid var(--border-light);
+            padding: 80px 5% 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            max-width: 1300px;
+            margin: 0 auto 60px;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 300px;
         }
 
         .footer-col h4 {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 25px;
-            color: var(--light);
-        }
-
-        .footer-col p {
-            color: #999999;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         .footer-col ul {
@@ -418,42 +837,81 @@
         }
 
         .footer-col ul li {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .footer-col ul li a {
-            color: #999999;
-            transition: color 0.3s ease;
+            color: var(--text-muted);
+            transition: color 0.3s;
         }
 
         .footer-col ul li a:hover {
-            color: var(--accent-orange);
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+        }
+
+        .contact-info i {
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 5px 15px var(--primary-glow);
         }
 
         .footer-bottom {
+            max-width: 1300px;
+            margin: 0 auto;
             text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #666666;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-muted);
             font-size: 14px;
         }
 
-        /* Micro-Animations (Scroll Reveals) */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Basic Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .reveal {
             opacity: 0;
             transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.active {
@@ -461,216 +919,369 @@
             transform: translateY(0);
         }
 
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .hero h1 {
-                font-size: 48px;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .stat-item {
+                flex: 1 1 40%;
+                border-right: none;
+                margin-bottom: 20px;
+            }
+            .about-wrapper {
+                flex-direction: column;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
+            header {
+                padding: 15px 5%;
             }
             nav ul {
-                display: none; /* Hide menu on mobile for simplicity */
-            }
-            .about {
-                flex-direction: column;
-            }
-            .about-image::after {
                 display: none;
             }
-            .stats {
-                flex-direction: column;
-                gap: 40px;
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .stat-item {
+                flex: 1 1 100%;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-container {
+                padding: 50px 30px;
+            }
+            .cta-container h2 {
+                font-size: 36px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Transparent Glassmorphism Navigation -->
+    <!-- Preloader -->
+    <div class="loader-wrapper" id="preloader">
+        <i class="fa-solid fa-truck-moving truck-loader"></i>
+        <div class="loader-text">LOADING</div>
+    </div>
+
+    <!-- Mouse Spotlight -->
+    <div class="cursor-spotlight" id="spotlight"></div>
+
+    <!-- Ambient Background Effects -->
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <!-- Navigation -->
     <header id="navbar">
         <div class="brand">
             <i class="fa-solid fa-truck-fast"></i>
-            Dhindsa <span>Truck Line</span>
+            Dhindsa <span>Trucking</span>
         </div>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contactus.html">Contact</a></li>
             </ul>
         </nav>
-        <a href="#quote" class="cta-btn orange">Get a Quote</a>
+        <a href="#quote" class="btn-modern">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="hero-bg-img"></div>
         <div class="hero-content">
-            <h1>Delivering <span>Excellence</span> Across the USA</h1>
-            <p>Your trusted partner for fast, secure, and reliable freight transportation nationwide. Driven by commitment, powered by modern logistics.</p>
-            <div class="hero-buttons">
-                <a href="#services" class="cta-btn">Our Services</a>
-                <a href="#contact" class="cta-btn orange">Contact Us</a>
+            <div class="hero-badge">Premium Logistics Provider</div>
+            <h1 id="hero-title">Next-Gen <span>Transportation</span> For America</h1>
+            <p>Elevating the supply chain with cutting-edge technology, unparalleled reliability, and a commitment to delivering excellence coast to coast.</p>
+            <div class="hero-btns">
+                <a href="services.html" class="btn-modern">Explore Services</a>
+                <a href="#about" class="btn-modern btn-outline">Our Story</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Highlight -->
+    <!-- Infinite Marquee Banner -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span><i class="fa-solid fa-star"></i> NATIONWIDE LOGISTICS</span>
+            <span><i class="fa-solid fa-bolt"></i> FAST EXPEDITED SHIPPING</span>
+            <span><i class="fa-solid fa-shield-halved"></i> 100% SECURE FREIGHT</span>
+            <span><i class="fa-solid fa-temperature-snow"></i> TEMP-CONTROLLED</span>
+            <span><i class="fa-solid fa-star"></i> NATIONWIDE LOGISTICS</span>
+            <span><i class="fa-solid fa-bolt"></i> FAST EXPEDITED SHIPPING</span>
+            <span><i class="fa-solid fa-shield-halved"></i> 100% SECURE FREIGHT</span>
+            <span><i class="fa-solid fa-temperature-snow"></i> TEMP-CONTROLLED</span>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
     <section class="stats">
-        <div class="stat-item reveal">
-            <h3>500+</h3>
-            <p>Trucks in Fleet</p>
-        </div>
-        <div class="stat-item reveal">
-            <h3>50 States</h3>
-            <p>Nationwide Coverage</p>
-        </div>
-        <div class="stat-item reveal">
-            <h3>24/7</h3>
-            <p>Dispatch Support</p>
-        </div>
-        <div class="stat-item reveal">
-            <h3>10k+</h3>
-            <p>Happy Clients</p>
+        <div class="stats-container reveal">
+            <div class="stat-item">
+                <h3><span class="counter" data-target="500">0</span>+</h3>
+                <p>Modern Trucks</p>
+            </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="50">0</span></h3>
+                <p>States Covered</p>
+            </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="24">0</span>/7</h3>
+                <p>Live Tracking</p>
+            </div>
+            <div class="stat-item">
+                <h3><span class="counter" data-target="99">0</span>%</h3>
+                <p>On-Time Delivery</p>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-content reveal">
-            <h2>Who We Are at <span>Dhindsa Truck Line</span></h2>
-            <p>At Dhindsa Truck Line, we understand that logistics is the backbone of America. With years of experience on the road, we have built a reputation for punctuality, safety, and unparalleled customer service. From coast to coast, our modern fleet and professional drivers ensure your cargo reaches its destination efficiently and securely.</p>
-            <p>Our mission is simple: to provide seamless transportation solutions tailored to your unique business needs, utilizing state-of-the-art technology and a passion for operational excellence.</p>
-            <a href="#contact" class="cta-btn">Learn More</a>
-        </div>
-        <div class="about-image reveal">
-            <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2074&auto=format&fit=crop" alt="Dhindsa Truck Line Fleet">
+    <section class="section-padding" id="about">
+        <div class="about-wrapper">
+            <div class="about-image-container reveal">
+                <div class="img-decor"></div>
+                <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2074&auto=format&fit=crop" alt="Dhindsa Truck Line Fleet" class="about-img" id="about-img">
+            </div>
+            <div class="about-content reveal">
+                <span class="section-subtitle">Who We Are</span>
+                <h2 class="section-title">Logistics Reimagined.</h2>
+                <p>At Dhindsa Truck Line, we don't just move freight; we optimize supply chains. With a state-of-the-art fleet and a data-driven approach, we provide unmatched visibility and efficiency for your most critical shipments.</p>
+                
+                <ul class="features-list" id="features-list">
+                    <li><i class="fa-solid fa-satellite-dish"></i> Real-time GPS and condition tracking</li>
+                    <li><i class="fa-solid fa-shield-halved"></i> Highest safety and compliance standards</li>
+                    <li><i class="fa-solid fa-leaf"></i> Eco-friendly, fuel-efficient modern fleet</li>
+                </ul>
+                
+                <a href="contactus.html" class="btn-modern btn-outline">Learn More About Us</a>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="section-header reveal">
-            <h2>Our Premium Services</h2>
-            <p>Comprehensive logistics solutions designed for the modern supply chain.</p>
+    <section class="section-padding services" id="services">
+        <div class="services-bg-img"></div>
+        <div class="services-header reveal">
+            <span class="section-subtitle">Our Solutions</span>
+            <h2 class="section-title">Comprehensive Freight Services</h2>
+            <p style="color: var(--text-muted); font-size: 18px;">Tailored logistics strategies designed to scale with your business and overcome any supply chain challenge.</p>
         </div>
         <div class="services-grid">
-            <div class="service-card reveal">
-                <i class="fa-solid fa-truck-moving service-icon"></i>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-truck"></i>
+                </div>
                 <h3>Full Truckload (FTL)</h3>
-                <p>Dedicated transportation for your high-volume freight, ensuring direct and swift delivery anywhere in the United States.</p>
+                <p>Dedicated capacity for high-volume shipments, ensuring direct routes and minimal handling for maximum speed and security.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-boxes-stacked service-icon"></i>
-                <h3>Less-than-Truckload (LTL)</h3>
-                <p>Cost-effective solutions for smaller shipments without compromising on delivery speed, tracking, or cargo security.</p>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <h3>Less-than-Truckload</h3>
+                <p>Smart consolidation routing that provides the cost-effectiveness of LTL without sacrificing delivery reliability.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-stopwatch service-icon"></i>
-                <h3>Expedited Shipping</h3>
-                <p>When time is critical, our team-driver expedited services guarantee your urgent freight arrives exactly when you need it.</p>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3>Expedited Delivery</h3>
+                <p>Team-driven, non-stop transit solutions for time-critical freight that absolutely must arrive on schedule.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-snowflake service-icon"></i>
-                <h3>Temperature Controlled</h3>
-                <p>State-of-the-art refrigerated trailers to transport your perishable or sensitive goods with precise, monitored climate control.</p>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-temperature-snow"></i>
+                </div>
+                <h3>Temp-Controlled</h3>
+                <p>Advanced refrigerated units with continuous remote temperature monitoring for your sensitive perishable goods.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-warehouse service-icon"></i>
-                <h3>Warehousing & Storage</h3>
-                <p>Secure, strategic storage solutions combined with efficient distribution networks to streamline your complex inventory.</p>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-boxes-packing"></i>
+                </div>
+                <h3>Warehousing</h3>
+                <p>Strategically located, secure facilities offering short and long-term storage, cross-docking, and inventory management.</p>
             </div>
-            <div class="service-card reveal">
-                <i class="fa-solid fa-route service-icon"></i>
-                <h3>Logistics Planning</h3>
-                <p>Advanced routing and end-to-end supply chain optimization to minimize costs and maximize your operational efficiency.</p>
+            <div class="service-card">
+                <div class="service-icon-wrap">
+                    <i class="fa-solid fa-chart-network"></i>
+                </div>
+                <h3>Supply Chain Consulting</h3>
+                <p>Expert analysis of your shipping patterns to uncover cost savings, optimize routes, and improve overall logistics efficiency.</p>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="cta-section reveal" id="quote">
-        <h2>Ready to Move Your Freight?</h2>
-        <p>Experience the Dhindsa Truck Line difference. Request a customized quote today and let our dedicated team handle your logistics with precision and care.</p>
-        <a href="#contact" class="cta-btn orange">Get Your Free Quote</a>
+    <!-- CTA Section -->
+    <section class="cta-section" id="quote">
+        <div class="cta-bg"></div>
+        <div class="cta-container reveal">
+            <h2>Ready to Optimize Your Logistics?</h2>
+            <p>Join industry leaders who trust Dhindsa Truck Line for their most critical freight operations. Let's build a smarter supply chain together.</p>
+            <a href="contactus.html" class="btn-modern" style="transform: scale(1.1); margin-top: 20px;">Request a Custom Quote</a>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer id="contact">
         <div class="footer-grid">
-            <div class="footer-col">
-                <div class="brand" style="font-size: 24px; margin-bottom: 20px;">
+            <div class="footer-brand reveal">
+                <div class="brand">
                     <i class="fa-solid fa-truck-fast"></i>
-                    Dhindsa <span>Truck</span>
+                    Dhindsa <span>Trucking</span>
                 </div>
-                <p>Delivering excellence, mile after mile. Your premier trucking and logistics partner across the United States of America.</p>
+                <p>Pioneering the future of freight transportation across North America with innovation, dedication, and superior service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
             </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
+            <div class="footer-col reveal">
+                <h4>Solutions</h4>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Our Services</a></li>
-                    <li><a href="#quote">Request a Quote</a></li>
+                    <li><a href="services.html">FTL Freight</a></li>
+                    <li><a href="services.html">LTL Freight</a></li>
+                    <li><a href="services.html">Expedited Shipping</a></li>
+                    <li><a href="services.html">Temperature Controlled</a></li>
+                    <li><a href="services.html">Warehousing</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <p><i class="fa-solid fa-location-dot"></i> 123 Logistics Way, Transport City, USA</p>
-                <p><i class="fa-solid fa-phone"></i> +1 (800) 555-0199</p>
-                <p><i class="fa-solid fa-envelope"></i> dispatch@dhindsa.com</p>
+            <div class="footer-col reveal">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">News & Media</a></li>
+                    <li><a href="contactus.html">Contact</a></li>
+                </ul>
             </div>
-            <div class="footer-col">
-                <h4>Follow Us</h4>
-                <div style="display: flex; gap: 15px; font-size: 20px;">
-                    <a href="#" style="color: #999;"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" style="color: #999;"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" style="color: #999;"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#" style="color: #999;"><i class="fa-brands fa-instagram"></i></a>
-                </div>
+            <div class="footer-col reveal">
+                <h4>Get in Touch</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Innovation Drive,<br>Logistics Center, CA 90210</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span>+1 (800) 555-0199</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span>dispatch@dhindsa.com</span></li>
+                </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2026 Dhindsa Truck Line. All Rights Reserved.
+            &copy; 2026 Dhindsa Truck Line. All Rights Reserved. Designed for the Future.
         </div>
     </footer>
 
     <!-- Interactive Scripts -->
     <script>
-        // Scroll Animation Observer for dynamic visual reveals
+        // --- 1. Preloader Animation ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+            }, 800); // 800ms delay to show the cool truck animation
+        });
+
+        // --- 2. Mouse Spotlight Effect ---
+        const spotlight = document.getElementById('spotlight');
+        document.addEventListener('mousemove', (e) => {
+            spotlight.style.left = e.clientX + 'px';
+            spotlight.style.top = e.clientY + 'px';
+        });
+
+        // --- 3. Text Stagger Reveal for Hero ---
+        const heroTitle = document.getElementById('hero-title');
+        // We do this by wrapping characters in span (excluding the inner span tag logic)
+        // For simplicity, we just animated the whole h1 in CSS, but let's do a word split effect manually
+        const text = "Next-Gen Transportation For America";
+        // Actually, we already have CSS fadeUp, but let's enhance it with JS character wrapping
+        const originalHTML = heroTitle.innerHTML;
+        const replaceText = originalHTML.split(/(<[^>]*>)/).map(part => {
+            if(part.startsWith('<')) return part;
+            return part.split('').map((char, i) => {
+                if(char === ' ') return ' ';
+                return `<span class="char-reveal" style="animation-delay: ${0.2 + (Math.random() * 0.5)}s">${char}</span>`;
+            }).join('');
+        }).join('');
+        heroTitle.innerHTML = replaceText;
+
+        // --- 4. Number Counting Animation for Stats ---
+        const counters = document.querySelectorAll('.counter');
+        const countObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+                    
+                    let current = 0;
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            countObserver.observe(counter);
+        });
+
+        // --- 5. Scroll Reveal Animations (General, Lists, Cards) ---
         const reveals = document.querySelectorAll('.reveal');
+        const serviceCards = document.querySelectorAll('.service-card');
+        const featuresList = document.getElementById('features-list');
+        const aboutImg = document.getElementById('about-img');
 
         const revealOnScroll = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    if (entry.target.id === 'about-img') entry.target.classList.add('active-img');
+                    if (entry.target.id === 'features-list') entry.target.classList.add('active');
                     observer.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.15,
+            threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
         });
 
-        reveals.forEach(reveal => {
-            revealOnScroll.observe(reveal);
+        reveals.forEach(reveal => revealOnScroll.observe(reveal));
+        if(aboutImg) revealOnScroll.observe(aboutImg);
+        if(featuresList) revealOnScroll.observe(featuresList);
+
+        // Staggered service cards
+        serviceCards.forEach((card, index) => {
+            card.style.transitionDelay = `${(index % 3) * 0.15}s`;
+            revealOnScroll.observe(card);
         });
 
-        // Dynamic Header Styling on Scroll
+        // --- 6. Header Scroll Effect ---
+        const header = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(17, 17, 17, 0.95)';
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
-                header.style.padding = '15px 5%';
+                header.classList.add('scrolled');
             } else {
-                header.style.background = 'rgba(17, 17, 17, 0.85)';
-                header.style.boxShadow = 'none';
-                header.style.padding = '20px 5%';
+                header.classList.remove('scrolled');
             }
         });
     </script>
